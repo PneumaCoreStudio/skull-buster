@@ -1,0 +1,179 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg8a0gvmvo8kd"]
+
+[ext_resource type="Texture2D" uid="uid://dmw8p1yu6f7ro" path="res://assets/sprites/characters.png" id="2_r3sn7"]
+
+[sub_resource type="GDScript" id="GDScript_3lqie"]
+script/source = "extends CharacterBody2D
+
+@export var speed: float = 400.0
+@export var gravity: float = 1000.0
+@export var sprite_deform_scale: Vector2 = Vector2.ONE
+@onready var animation_player = $AnimationPlayer
+
+var canPick = true
+var t:float = 0
+const freq = 20
+const SPEED = 200.0
+const JUMP_VELOCITY = -300.0
+const STOMP_VELOCITY = 600
+
+func _physics_process(delta):
+	# Add the gravity.
+	if not is_on_floor():
+			velocity.y += gravity * delta
+
+	# Jump.
+	if Input.is_action_just_pressed(\"jump\"):
+		velocity.y = JUMP_VELOCITY
+		animation_player.play(\"jump\")
+	elif Input.is_action_just_released(\"jump\") and velocity.y < 0:
+		velocity.y = 0
+
+	# Stomp
+	if Input.is_action_just_pressed(\"stomp\") and not is_on_floor():
+		velocity.y = STOMP_VELOCITY
+
+	# Movement
+	var direction = Input.get_axis(\"left\", \"right\")
+	if direction:
+		velocity.x = direction * SPEED
+		rotation = sin(t*freq) * 0.3
+		t += delta
+		if not is_on_floor():
+			rotation = direction * 0.2
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		rotation = lerp_angle(rotation,0,0.4)
+
+	move_and_slide()
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	print(\"visible\")
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	print(\"not visible\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fi7vk"]
+size = Vector2(18, 18)
+
+[sub_resource type="Animation" id="Animation_nl4d6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_41sxe"]
+resource_name = "jump"
+length = 0.4
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.045, 0.205, 0.395),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.15, 0.85), Vector2(0.75, 1.25), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.045, 0.205, 0.395),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1.32), Vector2(0, -2.39), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lti11"]
+resource_name = "throw"
+length = 0.4
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.745, 1.335), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tptjy"]
+_data = {
+"RESET": SubResource("Animation_nl4d6"),
+"jump": SubResource("Animation_41sxe"),
+"throw": SubResource("Animation_lti11")
+}
+
+[node name="player" type="CharacterBody2D"]
+z_index = -1
+collision_layer = 2
+collision_mask = 9
+script = SubResource("GDScript_3lqie")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fi7vk")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_r3sn7")
+hframes = 4
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tptjy")
+}
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

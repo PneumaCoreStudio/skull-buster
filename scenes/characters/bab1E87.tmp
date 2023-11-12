@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://d50sji6tgboe"]
+
+[ext_resource type="Script" path="res://scripts/baby.gd" id="1_xc333"]
+[ext_resource type="Texture2D" uid="uid://dhlnhcfrvtbq2" path="res://assets/sprites/baby_sprites.png" id="2_gjyjb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a1gq1"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rdqcu"]
+radius = 6.0
+
+[node name="baby" type="RigidBody2D"]
+collision_layer = 4
+linear_damp = 2.5
+script = ExtResource("1_xc333")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_a1gq1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rdqcu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gjyjb")
+hframes = 3
+frame = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0

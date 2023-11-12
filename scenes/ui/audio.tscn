@@ -1,0 +1,60 @@
+[gd_scene load_steps=15 format=3 uid="uid://4183sp22052i"]
+
+[ext_resource type="AudioStream" uid="uid://blqqssgahxb3v" path="res://assets/sounds/Woosh A.wav" id="1_3jahy"]
+[ext_resource type="AudioStream" uid="uid://cnmr3c2lwdf7y" path="res://assets/sounds/Impact A.wav" id="1_4ko3o"]
+[ext_resource type="AudioStream" uid="uid://dj1povl1cvvrn" path="res://assets/sounds/Woosh D.wav" id="1_nprfn"]
+[ext_resource type="AudioStream" uid="uid://dop37xu0jo2hk" path="res://assets/sounds/Impact B.wav" id="2_5lmb1"]
+[ext_resource type="AudioStream" uid="uid://di0c7e5dbglnv" path="res://assets/sounds/Woosh B.wav" id="2_ikug0"]
+[ext_resource type="AudioStream" uid="uid://btsur57sic46v" path="res://assets/sounds/Impact C.wav" id="3_8l3sc"]
+[ext_resource type="AudioStream" uid="uid://b7urs7ixsifbi" path="res://assets/sounds/Woosh C.wav" id="3_vxkr2"]
+[ext_resource type="AudioStream" uid="uid://cp02ba3up3sff" path="res://assets/sounds/Impact D.wav" id="4_tmxvv"]
+[ext_resource type="AudioStream" uid="uid://bl6hn5n6oei2q" path="res://assets/sounds/Impact E.wav" id="5_5sfkp"]
+[ext_resource type="AudioStream" uid="uid://doe305vmnxhs0" path="res://assets/sounds/Click.wav" id="10_2gypf"]
+[ext_resource type="AudioStream" uid="uid://b6wmanja5k11d" path="res://assets/sounds/ui_accept.wav" id="10_3bawj"]
+[ext_resource type="AudioStream" uid="uid://c6wht04l4w1h7" path="res://assets/sounds/ui_cancel.wav" id="10_jmygf"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kbjy8"]
+streams_count = 4
+stream_0/stream = ExtResource("1_3jahy")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_ikug0")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_vxkr2")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("1_nprfn")
+stream_3/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_m34bd"]
+streams_count = 5
+stream_0/stream = ExtResource("1_4ko3o")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_5lmb1")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_8l3sc")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_tmxvv")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_5sfkp")
+stream_4/weight = 1.0
+
+[node name="Audio System" type="Node"]
+
+[node name="throw" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_kbjy8")
+pitch_scale = 2.02
+
+[node name="explode" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_m34bd")
+pitch_scale = 1.47
+
+[node name="click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_2gypf")
+pitch_scale = 2.0
+
+[node name="ui_accept" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_3bawj")
+pitch_scale = 1.2
+
+[node name="ui_cancel" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_jmygf")
+pitch_scale = 1.3
