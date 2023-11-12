@@ -10,4 +10,8 @@ func _ready():
 
 func _process(delta):
 	if enemyCount == 0:
-		print("SUCCESS")
+		print("Sucess")
+
+#func success():
+#	if enemyCount == 0:
+#		print("SUCCESS")

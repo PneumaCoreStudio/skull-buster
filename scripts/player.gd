@@ -32,12 +32,12 @@ func _physics_process(delta):
 	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED
-		rotation = sin(t*freq) * 0.3
-		t += delta
-		if not is_on_floor():
-			rotation = direction * 0.2
+#		rotation = sin(t*freq) * 0.3
+#		t += delta
+#		if not is_on_floor():
+#			rotation = direction * 0.2
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		rotation = lerp_angle(rotation,0,0.4)
+#		rotation = lerp_angle(rotation,0,0.4)
 		
 	move_and_slide()

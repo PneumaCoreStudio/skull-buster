@@ -1,59 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0wj1q27bxk8m"]
+[gd_scene load_steps=12 format=3 uid="uid://b0wj1q27bxk8m"]
 
 [ext_resource type="Texture2D" uid="uid://cvn0shydf7cky" path="res://assets/sprites/tileset.png" id="1_gh3al"]
 [ext_resource type="Script" path="res://scripts/global.gd" id="1_vehoo"]
-[ext_resource type="PackedScene" uid="uid://d50sji6tgboe" path="res://scenes/characters/baby.tscn" id="4_3dku7"]
 [ext_resource type="PackedScene" uid="uid://sg7xpyc3pa7s" path="res://scenes/characters/enemy.tscn" id="4_oew0r"]
+[ext_resource type="PackedScene" uid="uid://bg8a0gvmvo8kd" path="res://scenes/characters/player.tscn" id="4_syf2w"]
+[ext_resource type="PackedScene" uid="uid://d50sji6tgboe" path="res://scenes/characters/skull.tscn" id="5_6sppc"]
 [ext_resource type="PackedScene" uid="uid://4183sp22052i" path="res://scenes/ui/audio.tscn" id="5_hyq5d"]
-[ext_resource type="PackedScene" uid="uid://bg8a0gvmvo8kd" path="res://scenes/characters/player.tscn" id="5_ris6s"]
+[ext_resource type="Script" path="res://scripts/enemyGroup.gd" id="6_mkla4"]
 [ext_resource type="PackedScene" uid="uid://bhdwn2x52y6ms" path="res://scenes/ui/offScreenMarker.tscn" id="8_757s2"]
-[ext_resource type="Script" path="res://scenes/levels/enemyGroup.gd" id="8_gc17t"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oh6q8"]
-bg_color = Color(0, 0, 0, 0.552941)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_lokt1"]
-MarginContainer/constants/margin_bottom = 10
-MarginContainer/constants/margin_left = 10
-MarginContainer/constants/margin_right = 10
-MarginContainer/constants/margin_top = 10
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_oh6q8")
-
-[sub_resource type="GDScript" id="GDScript_xomm4"]
-script/source = "extends PanelContainer
-
-@onready var property_container = %VBoxContainer
-
-var property
-var frames_per_second : String
-
-func _ready():
-	visible = false
-	add_debug_porperty(\"test\",\"test\")
-
-func _input(event):
-	if event.is_action_pressed(\"debug\"):
-		visible = !visible
-
-func add_debug_porperty(title : String,value):
-	property = Label.new()
-	property_container.add_child(property)
-	property.name = title
-	property.text = property.name + value
-
-func _process(delta):
-	if visible:
-		frames_per_second = \"%.2f\" % (1.0/delta)
-		property.text = property.name + \": \" + frames_per_second
-"
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_monhh"]
 
@@ -174,27 +128,6 @@ position = Vector2(467, 288)
 script = ExtResource("1_vehoo")
 metadata/_edit_vertical_guides_ = [467.0]
 
-[node name="UserInterface" type="Node" parent="."]
-
-[node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
-visible = false
-custom_minimum_size = Vector2(200, 0)
-offset_left = 310.0
-offset_top = 179.0
-offset_right = 510.0
-offset_bottom = 219.0
-theme = SubResource("Theme_lokt1")
-script = SubResource("GDScript_xomm4")
-
-[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
-visible = false
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(49, -36)
 tile_set = SubResource("TileSet_ld7tr")
@@ -204,14 +137,13 @@ layer_0/tile_data = PackedInt32Array(327674, 65537, 1, 262138, 65537, 1, 196602,
 
 [node name="audio" parent="." instance=ExtResource("5_hyq5d")]
 
-[node name="baby" parent="." instance=ExtResource("4_3dku7")]
-position = Vector2(0, -11)
+[node name="player" parent="." instance=ExtResource("4_syf2w")]
+position = Vector2(0, 26)
 
-[node name="player" parent="." instance=ExtResource("5_ris6s")]
-position = Vector2(0, 25)
+[node name="skull" parent="." instance=ExtResource("5_6sppc")]
 
 [node name="enemies" type="Node" parent="."]
-script = ExtResource("8_gc17t")
+script = ExtResource("6_mkla4")
 
 [node name="Enemy" parent="enemies" groups=["enemy"] instance=ExtResource("4_oew0r")]
 position = Vector2(467, 250)

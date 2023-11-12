@@ -7,12 +7,7 @@ func _process(delta):
 	sprite.global_position.x = get_node("../../player").global_position.x
 	var bounds : Rect2
 	sprite.global_position.y = clamp(global_position.y, bounds.position.y, bounds.end.y)
-	print(sprite.global_position)
-	
-	if get_node("../../player"):
-		hide()
-	else:
-		show()
+
 
 #func set_marker_position(bounds : Rect2):
 #	sprite.global_position.x = clamp(global_position.x, bounds.position.x, bounds.end.x)
