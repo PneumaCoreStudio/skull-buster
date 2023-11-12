@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var gravity: float = 1000.0
 @export var sprite_deform_scale: Vector2 = Vector2.ONE
 @onready var animation_player = $AnimationPlayer
+@onready var sprite = $Sprite2D
 
 var canPick = true
 var t:float = 0
@@ -30,14 +31,19 @@ func _physics_process(delta):
 
 	# Movement
 	var direction = Input.get_axis("left", "right")
+	if Input.is_action_pressed("left"):
+		sprite.scale.x = -1
+	elif Input.is_action_pressed("right"):
+		sprite.scale.x = 1
+		
 	if direction:
 		velocity.x = direction * SPEED
-#		rotation = sin(t*freq) * 0.3
-#		t += delta
-#		if not is_on_floor():
-#			rotation = direction * 0.2
+		rotation = sin(t*freq) * 0.3
+		t += delta
+		if not is_on_floor():
+			rotation = direction * 0.2
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-#		rotation = lerp_angle(rotation,0,0.4)
+		rotation = lerp_angle(rotation,0,0.4)
 		
 	move_and_slide()

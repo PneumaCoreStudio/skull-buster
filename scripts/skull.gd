@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const THROW_FORCE = Vector2(0,-1500)
+const THROW_FORCE = Vector2(0,-1000)
 var dropLerp = .7
 var held : bool
 var inAir : bool
@@ -39,7 +39,7 @@ func throw():
 	get_node("../audio/throw").play()
 	get_node("../player").canPick = true
 	apply_central_impulse(THROW_FORCE)
-	apply_torque(100*100)
+	apply_torque(91*100)
 	await get_tree().create_timer(.5).timeout
 	inAir = true
 
