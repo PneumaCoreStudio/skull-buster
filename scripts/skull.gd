@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const THROW_FORCE = Vector2(0,-1000)
+const THROW_FORCE = Vector2(0,-900)
 var dropLerp = .7
 var held : bool
 var inAir : bool
@@ -18,6 +18,7 @@ func _physics_process(delta):
 
 	if held == true:
 		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)
+		rotation = 0
 		z_index = 2
 		lerp_angle(rotation,0,0.4)
 		if Input.is_action_just_pressed("throw"):
@@ -31,6 +32,7 @@ func _physics_process(delta):
 				held = true
 				get_node("../player").canPick = false
 
+
 ## THROW FUNCTIONALITY ##
 func throw():
 	held = false
@@ -42,6 +44,7 @@ func throw():
 	apply_torque(91*100)
 	await get_tree().create_timer(.5).timeout
 	inAir = true
+
 
 ### PICKING & DROPPING FUNCTIONALITY ##
 #func _input(event):

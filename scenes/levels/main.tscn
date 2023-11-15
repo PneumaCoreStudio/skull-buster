@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d50sji6tgboe" path="res://scenes/characters/skull.tscn" id="5_6sppc"]
 [ext_resource type="PackedScene" uid="uid://4183sp22052i" path="res://scenes/ui/audio.tscn" id="5_hyq5d"]
 [ext_resource type="Script" path="res://scripts/enemyGroup.gd" id="6_mkla4"]
-[ext_resource type="PackedScene" uid="uid://bhdwn2x52y6ms" path="res://scenes/ui/offScreenMarker.tscn" id="8_757s2"]
+[ext_resource type="PackedScene" uid="uid://f3p2k6mynxcx" path="res://scenes/objects/enemySpawner.tscn" id="8_16qgx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_monhh"]
 
@@ -151,4 +151,5 @@ position = Vector2(467, 250)
 [node name="Enemy2" parent="enemies" groups=["enemy"] instance=ExtResource("4_oew0r")]
 position = Vector2(439, 214)
 
-[node name="CanvasLayer" parent="." instance=ExtResource("8_757s2")]
+[node name="enemySpawner" parent="." instance=ExtResource("8_16qgx")]
+position = Vector2(10, -74)
