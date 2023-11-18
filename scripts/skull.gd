@@ -4,6 +4,8 @@ const THROW_FORCE = Vector2(0,-900)
 var dropLerp = .7
 var held : bool
 var inAir : bool
+@onready var sprite = $Sprite2D
+@onready var animation = $AnimationPlayer
 
 func _ready():
 	Global.skull = self
@@ -16,6 +18,11 @@ func _ready():
 func _physics_process(delta):
 	if held:
 		sleeping = true
+		if Input.is_action_pressed("left"):
+			sprite.scale.x = -1
+		elif Input.is_action_pressed("right"):
+			sprite.scale.x = 1
+
 
 	if held == true:
 		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)

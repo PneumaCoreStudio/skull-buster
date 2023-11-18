@@ -3,8 +3,9 @@ extends CharacterBody2D
 @export var speed: float = 400.0
 @export var gravity: float = 1000.0
 @export var sprite_deform_scale: Vector2 = Vector2.ONE
-@onready var animation_player = $AnimationPlayer
+@onready var animation = $AnimationPlayer
 @onready var sprite = $Sprite2D
+@onready var marker = $Marker2D
 
 var canPick = true
 var t:float = 0
@@ -21,7 +22,7 @@ func _physics_process(delta):
 	## Jump ##
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
-		animation_player.play("jump")
+		animation.play("jump")
 	elif Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y = 0
 
