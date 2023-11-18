@@ -136,12 +136,12 @@ layer_0/tile_data = PackedInt32Array(327674, 65537, 1, 262138, 131073, 1, 196602
 [node name="audio" parent="." instance=ExtResource("5_hyq5d")]
 
 [node name="player" parent="." instance=ExtResource("4_syf2w")]
-position = Vector2(0, 28)
+position = Vector2(0, 26)
 
 [node name="skull" parent="." instance=ExtResource("5_6sppc")]
 
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("enemyGroup", "Audio") instance=ExtResource("8_16qgx")]
-position = Vector2(0, -105)
+position = Vector2(0, -96)
 enemyGroup = NodePath("../enemyGroup")
 Audio = NodePath("../audio")
 

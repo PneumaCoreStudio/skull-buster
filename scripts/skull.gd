@@ -6,6 +6,7 @@ var held : bool
 var inAir : bool
 
 func _ready():
+	Global.skull = self
 	z_index = -1
 	held = false
 	if held != true:
