@@ -23,20 +23,18 @@ func _physics_process(delta):
 	if not is_on_floor():
 			velocity.y += gravity * delta
 
-#region PLAYER ACTIONS
+
 	## Jump ##
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		animation.play("jump")
 	elif Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y = 0
 
 	## Stomp ##
-	if Input.is_action_just_pressed("stomp") and not is_on_floor():
-		velocity.y = STOMP_VELOCITY
-#endregion
+	#if Input.is_action_just_pressed("stomp") and not is_on_floor():
+		#velocity.y = STOMP_VELOCITY
 
-#region MOVEMENT
 	var direction = Input.get_axis("left", "right")
 	if Input.is_action_pressed("left"):
 		sprite.scale.x = -1
@@ -54,6 +52,5 @@ func _physics_process(delta):
 
 	if Global.gameOver == true:
 		return
-#endregion
 
 	move_and_slide()

@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://f3p2k6mynxcx"]
+[gd_scene load_steps=4 format=3 uid="uid://f3p2k6mynxcx"]
 
 [ext_resource type="Script" path="res://scripts/enemySpawner.gd" id="1_5hgkd"]
 [ext_resource type="PackedScene" uid="uid://sg7xpyc3pa7s" path="res://scenes/characters/enemy.tscn" id="2_dhgk5"]
+[ext_resource type="PackedScene" uid="uid://du6q67u7ohjjl" path="res://scenes/characters/bomb.tscn" id="3_0x0o4"]
 
 [node name="enemySpawner" type="Node2D"]
 script = ExtResource("1_5hgkd")
-enemyType = ExtResource("2_dhgk5")
+basicEnemy = ExtResource("2_dhgk5")
+bombEnemy = ExtResource("3_0x0o4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,6 +1,5 @@
 extends Node2D
 
-var score : int
 var time : float
 var audio : Node
 var enemyCount : int
@@ -15,7 +14,7 @@ func _ready():
 	Global.currentWorld = self
 	audio = $audio
 	Global.audioSystem = audio
-	score = 0
+	Global.score = 0
 	time = 60
 	label.visible = false
 

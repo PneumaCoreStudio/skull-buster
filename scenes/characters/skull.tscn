@@ -115,7 +115,6 @@ shape = SubResource("CircleShape2D_rdqcu")
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -80)
 zoom = Vector2(2.5, 2.5)
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

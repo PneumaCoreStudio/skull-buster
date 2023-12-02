@@ -1,6 +1,10 @@
 extends StaticBody2D
 
+var random_direction
+
 func _physics_process(delta):
+	var nums = [-1,1]
+	random_direction = (nums[randi() % nums.size()])
 	global_position.y += 3
 
 
@@ -13,8 +17,11 @@ func _physics_process(delta):
 				Global.score += 1
 				print(Global.score)
 				Global.audioSystem.find_child("explode").play()
+				Global.skull.apply_torque(100*100)
+				Global.skull.apply_central_impulse(Vector2(random_direction * 350,-300))
+				Global.skull.apply_torque(100*100)
 				free()
-			elif get_node("../../skull").held == true:
+			elif get_node("../skull").held == true:
 				Global.audioSystem.find_child("crunch").play()
 				Global.gameOver = true
 				free()

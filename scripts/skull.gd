@@ -25,7 +25,7 @@ func _physics_process(delta):
 
 
 	if held == true:
-#		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)
+		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)
 		global_position = get_node("../player/Marker2D").global_position
 		rotation = 0
 		z_index = 2

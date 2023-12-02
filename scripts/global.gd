@@ -6,4 +6,4 @@ var audioSystem : Node
 var skull : RigidBody2D
 var currentWorld : Node
 var gameOver : bool
-
+var score : int

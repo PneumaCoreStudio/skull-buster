@@ -1,16 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://sg7xpyc3pa7s"]
+[gd_scene load_steps=5 format=3 uid="uid://du6q67u7ohjjl"]
 
-[ext_resource type="Texture2D" uid="uid://dmw8p1yu6f7ro" path="res://assets/sprites/characters.png" id="1_5nduq"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_yo5vf"]
+[ext_resource type="Script" path="res://scripts/bomb.gd" id="1_5uyj6"]
+[ext_resource type="Texture2D" uid="uid://dmw8p1yu6f7ro" path="res://assets/sprites/characters.png" id="2_6vq68"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_thli3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu7w"]
 
-[node name="Enemy" type="StaticBody2D"]
+[node name="Bomb" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 3
-script = ExtResource("1_yo5vf")
+script = ExtResource("1_5uyj6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_thli3")
@@ -23,11 +23,9 @@ collision_mask = 7
 shape = SubResource("CircleShape2D_7bu7w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 1)
-rotation = -3.14159
-texture = ExtResource("1_5nduq")
+texture = ExtResource("2_6vq68")
 hframes = 4
 vframes = 3
-frame = 5
+frame = 8
 
 [node name="Timer" type="Timer" parent="."]
