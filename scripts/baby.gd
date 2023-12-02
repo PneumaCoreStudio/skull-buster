@@ -1,14 +1,11 @@
 extends RigidBody2D
 
-const THROW_FORCE = Vector2(0,-900)
+const THROW_FORCE = Vector2(0,-1500)
 var dropLerp = .7
 var held : bool
 var inAir : bool
-@onready var sprite = $Sprite2D
-@onready var animation = $AnimationPlayer
 
 func _ready():
-	Global.skull = self
 	z_index = -1
 	held = false
 	if held != true:
@@ -18,16 +15,9 @@ func _ready():
 func _physics_process(delta):
 	if held:
 		sleeping = true
-		if Input.is_action_pressed("left"):
-			sprite.scale.x = -1
-		elif Input.is_action_pressed("right"):
-			sprite.scale.x = 1
-
 
 	if held == true:
-#		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)
-		global_position = get_node("../player/Marker2D").global_position
-		rotation = 0
+		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)
 		z_index = 2
 		lerp_angle(rotation,0,0.4)
 		if Input.is_action_just_pressed("throw"):
@@ -41,7 +31,6 @@ func _physics_process(delta):
 				held = true
 				get_node("../player").canPick = false
 
-
 ## THROW FUNCTIONALITY ##
 func throw():
 	held = false
@@ -50,10 +39,9 @@ func throw():
 	get_node("../audio/throw").play()
 	get_node("../player").canPick = true
 	apply_central_impulse(THROW_FORCE)
-	apply_torque(91*100)
+	apply_torque(100*100)
 	await get_tree().create_timer(.5).timeout
 	inAir = true
-
 
 ### PICKING & DROPPING FUNCTIONALITY ##
 #func _input(event):

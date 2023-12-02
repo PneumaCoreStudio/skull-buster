@@ -14,11 +14,16 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 const STOMP_VELOCITY = 600
 
+func _process(delta):
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
+
 func _physics_process(delta):
 	## Add the gravity ##
 	if not is_on_floor():
 			velocity.y += gravity * delta
 
+#region PLAYER ACTIONS
 	## Jump ##
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
@@ -29,8 +34,9 @@ func _physics_process(delta):
 	## Stomp ##
 	if Input.is_action_just_pressed("stomp") and not is_on_floor():
 		velocity.y = STOMP_VELOCITY
+#endregion
 
-	## Movement ##
+#region MOVEMENT
 	var direction = Input.get_axis("left", "right")
 	if Input.is_action_pressed("left"):
 		sprite.scale.x = -1
@@ -38,13 +44,16 @@ func _physics_process(delta):
 		sprite.scale.x = 1
 	if direction:
 		velocity.x = direction * SPEED
-		rotation = sin(t*freq) * 0.3
-		t += delta
-		if not is_on_floor():
-			rotation = direction * 0.2
+#		rotation = sin(t*freq) * 0.3
+#		t += delta
+#		if not is_on_floor():
+#			rotation = direction * 0.2
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		rotation = lerp_angle(rotation,0,0.4)
 
+	if Global.gameOver == true:
+		return
+#endregion
 
 	move_and_slide()

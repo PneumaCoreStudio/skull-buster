@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4183sp22052i"]
+[gd_scene load_steps=18 format=3 uid="uid://4183sp22052i"]
 
 [ext_resource type="AudioStream" uid="uid://blqqssgahxb3v" path="res://assets/sounds/Woosh A.wav" id="1_3jahy"]
 [ext_resource type="AudioStream" uid="uid://cnmr3c2lwdf7y" path="res://assets/sounds/Impact A.wav" id="1_4ko3o"]
@@ -12,6 +12,8 @@
 [ext_resource type="AudioStream" uid="uid://doe305vmnxhs0" path="res://assets/sounds/Click.wav" id="10_2gypf"]
 [ext_resource type="AudioStream" uid="uid://b6wmanja5k11d" path="res://assets/sounds/ui_accept.wav" id="10_3bawj"]
 [ext_resource type="AudioStream" uid="uid://c6wht04l4w1h7" path="res://assets/sounds/ui_cancel.wav" id="10_jmygf"]
+[ext_resource type="AudioStream" uid="uid://bhl2co411tnsw" path="res://assets/sounds/Crunch A.wav" id="13_5squ1"]
+[ext_resource type="AudioStream" uid="uid://dinshx043v6e5" path="res://assets/sounds/Crunch B.wav" id="14_xx4se"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kbjy8"]
 streams_count = 4
@@ -37,6 +39,13 @@ stream_3/weight = 1.0
 stream_4/stream = ExtResource("5_5sfkp")
 stream_4/weight = 1.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hhw0c"]
+streams_count = 2
+stream_0/stream = ExtResource("13_5squ1")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("14_xx4se")
+stream_1/weight = 1.0
+
 [node name="Audio System" type="Node"]
 
 [node name="throw" type="AudioStreamPlayer2D" parent="."]
@@ -57,4 +66,8 @@ pitch_scale = 1.2
 
 [node name="ui_cancel" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_jmygf")
+pitch_scale = 1.3
+
+[node name="crunch" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_hhw0c")
 pitch_scale = 1.3

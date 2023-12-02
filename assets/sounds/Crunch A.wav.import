@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhl2co411tnsw"
+path="res://.godot/imported/Crunch A.wav-4c5c4af5e2bc276706fb5f7e9e892c13.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Crunch A.wav"
+dest_files=["res://.godot/imported/Crunch A.wav-4c5c4af5e2bc276706fb5f7e9e892c13.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

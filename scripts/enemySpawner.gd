@@ -18,6 +18,3 @@ func spawn():
 		var enemy = enemyType.instantiate() as StaticBody2D
 		enemyGroup.add_child(enemy)
 		enemy.global_position = enemySpawner.global_position
-
-
-

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhdwn2x52y6ms"]
+
+[ext_resource type="Script" path="res://scripts/offScreenMarker.gd" id="1_btffx"]
+[ext_resource type="Texture2D" uid="uid://dmw8p1yu6f7ro" path="res://assets/sprites/characters.png" id="1_wn668"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Marker" type="Node2D" parent="."]
+z_index = 10
+script = ExtResource("1_btffx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Marker"]
+texture = ExtResource("1_wn668")
+hframes = 4
+vframes = 3
+frame = 2
