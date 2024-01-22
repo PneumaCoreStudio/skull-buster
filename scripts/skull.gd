@@ -1,7 +1,6 @@
 extends RigidBody2D
 
 const THROW_FORCE = Vector2(0,-900)
-var dropLerp = .7
 var held : bool
 var inAir : bool
 @onready var sprite = $Sprite2D
@@ -15,17 +14,10 @@ func _ready():
 		inAir = false
 	inAir = true
 
-func _physics_process(delta):
-	if held:
-		sleeping = true
-		if Input.is_action_pressed("left"):
-			sprite.scale.x = -1
-		elif Input.is_action_pressed("right"):
-			sprite.scale.x = 1
 
-
+func _process(delta):
+	var bodies = $Area2D.get_overlapping_bodies()
 	if held == true:
-		global_position = lerp(global_position, get_node("../player/Marker2D").global_position, dropLerp)
 		global_position = get_node("../player/Marker2D").global_position
 		rotation = 0
 		z_index = 2
@@ -33,16 +25,24 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("throw"):
 			throw()
 
+func _physics_process(delta):
+
+	var bodies = $Area2D.get_overlapping_bodies()
+	for body in bodies:
+		if held:
+			sleeping = true
+			if Input.is_action_pressed("left"):
+				sprite.scale.x = -1
+			elif Input.is_action_pressed("right"):
+				sprite.scale.x = 1
+
 	if inAir == true:
-		var bodies = $Area2D.get_overlapping_bodies()
 		for body in bodies:
 			if body.name == "player" and inAir == true:
 				inAir = false
 				held = true
 				get_node("../player").canPick = false
 
-
-## THROW FUNCTIONALITY ##
 func throw():
 	held = false
 	sleeping = false
@@ -53,7 +53,6 @@ func throw():
 	apply_torque(91*100)
 	await get_tree().create_timer(.5).timeout
 	inAir = true
-
 
 ### PICKING & DROPPING FUNCTIONALITY ##
 #func _input(event):
@@ -66,3 +65,10 @@ func throw():
 #			elif body.name == "player" and get_node("../player").canPick == false:
 #				held = false
 #				get_node("../player").canPick = true
+#endregion
+
+
+func _on_area_2d_body_entered(body):
+	if body_entered:
+		if body.name == "bomb":
+			print("bomb")

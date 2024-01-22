@@ -1,12 +1,13 @@
 extends StaticBody2D
 
 func _physics_process(delta):
+
+#region Enemy Movement
 	global_position.y += 3
+#endregion
 
-
+#region Collision w/ Skull
 	var bodies = $Area2D.get_overlapping_bodies()
-	
-	## Collides with Skull ##
 	for body in bodies:
 		if body.name == "skull":
 			if get_node("../../skull").held == false:
@@ -25,6 +26,6 @@ func _physics_process(delta):
 			Global.gameOver = true
 			free()
 
-## Collides with player##
 		if body.name == "player":
 			Global.gameOver = true
+

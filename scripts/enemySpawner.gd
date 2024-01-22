@@ -6,11 +6,12 @@ extends Node2D
 @export var enemyGroup : Node2D
 @export var Audio : Node 
 @onready var timer = $Timer
-#var randomNumber = randi_range(0,1)
 
 func _ready():
 		timer.start()
 
+func _on_timer_timeout():
+	spawn()
 
 func spawn():
 		var randomNumber = randi_range(0,1)
@@ -28,5 +29,3 @@ func spawn():
 			pass
 
 
-func _on_timer_timeout():
-	spawn()

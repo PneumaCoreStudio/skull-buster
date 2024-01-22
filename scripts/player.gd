@@ -19,9 +19,11 @@ func _process(delta):
 		get_tree().quit()
 
 func _physics_process(delta):
+
 	## Add the gravity ##
 	if not is_on_floor():
 			velocity.y += gravity * delta
+
 
 
 	## Jump ##
@@ -31,9 +33,6 @@ func _physics_process(delta):
 	elif Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y = 0
 
-	## Stomp ##
-	#if Input.is_action_just_pressed("stomp") and not is_on_floor():
-		#velocity.y = STOMP_VELOCITY
 
 	var direction = Input.get_axis("left", "right")
 	if Input.is_action_pressed("left"):
@@ -42,15 +41,10 @@ func _physics_process(delta):
 		sprite.scale.x = 1
 	if direction:
 		velocity.x = direction * SPEED
-#		rotation = sin(t*freq) * 0.3
-#		t += delta
-#		if not is_on_floor():
-#			rotation = direction * 0.2
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		rotation = lerp_angle(rotation,0,0.4)
 
 	if Global.gameOver == true:
 		return
-
 	move_and_slide()

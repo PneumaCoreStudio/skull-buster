@@ -3,14 +3,14 @@ extends StaticBody2D
 var random_direction
 
 func _physics_process(delta):
+
 	var nums = [-1,1]
 	random_direction = (nums[randi() % nums.size()])
 	global_position.y += 3
 
 
+## Collision w/ Skull ##
 	var bodies = $Area2D.get_overlapping_bodies()
-	
-	## Collides with Skull ##
 	for body in bodies:
 		if body.name == "skull":
 			if get_node("../../skull").held == false:
@@ -21,7 +21,7 @@ func _physics_process(delta):
 				Global.skull.apply_central_impulse(Vector2(random_direction * 350,-300))
 				Global.skull.apply_torque(100*100)
 				free()
-			elif get_node("../skull").held == true:
+			elif get_node("../../skull").held == true:
 				Global.audioSystem.find_child("crunch").play()
 				Global.gameOver = true
 				free()
@@ -32,6 +32,7 @@ func _physics_process(delta):
 			Global.gameOver = true
 			free()
 
-## Collides with player##
+## Collision w/ Player ##
 		if body.name == "player":
 			Global.gameOver = true
+
